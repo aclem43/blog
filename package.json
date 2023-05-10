@@ -12,6 +12,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@codemirror/lang-markdown": "^6.1.1",
+    "@codemirror/language-data": "^6.3.1",
+    "@types/marked": "^4.3.0",
+    "codemirror": "^6.0.1",
+    "marked": "^5.0.1",
     "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
