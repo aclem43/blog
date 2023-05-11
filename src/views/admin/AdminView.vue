@@ -6,19 +6,10 @@ const posts = mockPostRequest()
 
 <template>
   <v-card style="min-height: inherit">
-    <v-toolbar color="">
-      <template v-slot:prepend>
-        <v-btn icon="$menu"></v-btn>
-      </template>
-
-      <v-toolbar-title primary-title class="text-h6"> Admin </v-toolbar-title>
-
-      <template v-slot:append>
-        <v-btn icon="mdi-dots-vertical"></v-btn>
-      </template>
-    </v-toolbar>
-    <v-card-actions>
-      <button>Add</button>
+    <v-card-title>Admin</v-card-title>
+    <v-card-actions class="d-flex justify-end">
+      <v-btn variant="outlined" href="/admin/gallery">Admin Gallery</v-btn>
+      <v-btn variant="outlined" href="/admin/new">New</v-btn>
     </v-card-actions>
     <v-list>
       <v-list-item
