@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import PostView from '../views/PostView.vue'
 import GalleryView from '../views/GalleryView.vue'
 import NewPostView from '../views/NewPostView.vue'
+import AdminView from '@/views/AdminView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/gallery',
       name: 'gallery',
       component: GalleryView
+    },
+    {
+      path: '/admin/',
+      name: 'admin',
+      component: AdminView
     },
     {
       path: '/new',
