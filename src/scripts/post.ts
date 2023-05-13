@@ -16,7 +16,7 @@ export const mockPostRequest = (): Post[] => {
     {
       id: 1,
       title: 'Post 1',
-      image: { url: 'https://picsum.photos/600/200', height: 200, cover: true },
+      image: { url: '/api/image/1', height: 300, cover: true },
       descriptionBody: 'Description post 1',
       content: {
         body: '# TEst\n ## Test\n ![foo](https://picsum.photos/200/600 "foo")'

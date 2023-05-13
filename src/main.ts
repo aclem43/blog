@@ -8,6 +8,7 @@ import { darkTheme, lightTheme } from './scripts/theme'
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 
 const app = createApp(App)
 
@@ -17,6 +18,13 @@ const vuetify = createVuetify({
     themes: {
       darkTheme,
       lightTheme
+    }
+  },
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: {
+      mdi
     }
   }
 })

@@ -31,6 +31,7 @@ const initilizeBlogPostTable = async () => {
         title VARCHAR(255) NOT NULL,
         descriptionBody VARCHAR(255) NOT NULL,
         imageId INT,
+        date DATETIME NOT NULL DEFAULT GETDATE(),
         )
     `)
   logger.log('Initialized blog_posts table')
@@ -43,6 +44,7 @@ const initImagesTable = async () => {
         id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
         imageURL VARCHAR(MAX) NOT NULL,
         description VARCHAR(255),
+        post TINYINT,
         )
     `)
   const dir = __dirname + '../../images/'
@@ -60,6 +62,14 @@ export const getPosts = async () => {
 export const getPost = async (id: number) => {
   const result = await sql.query`select * from blog_posts where id = ${id}`
   return result.recordset[0]
+}
+
+export const getImages = async () => {
+  const result = await sql.query`select * from images`
+  for (const image of result.recordset) {
+    image.imageURL = '/api/image/' + image.id
+  }
+  return result.recordset
 }
 
 export const getImage = async (id: number) => {

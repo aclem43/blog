@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 const dialog = ref(false)
 const file = ref()
+const post = ref(false)
 const image = ref('')
 
 const onFileChange = (e: Event) => {
@@ -22,9 +23,8 @@ const upload = () => {
     method: 'POST',
     body: data
   })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
+    .then((res) => {
+      res.status === 200 ? (dialog.value = false) : console.log(res)
     })
     .catch((err) => console.log(err))
 }
@@ -46,13 +46,13 @@ defineExpose({ openDialog: openOverlay })
             <v-file-input
               accept="image/*"
               label="Select a picture"
-              prepend-icon="mdi-camera"
               show-size
               variant="solo"
               @change="onFileChange"
             ></v-file-input>
-            <v-btn color="primary" max-width="300" @click="upload()" block>Upload</v-btn>
           </div>
+          <v-btn color="primary" max-width="300" @click="upload()" block>Upload</v-btn>
+          <v-switch v-model="post" label="Post"></v-switch>
           <div class="d-flex flex-grow-1" style="height: 300px">
             <v-img v-if="image" :src="image"></v-img>
             <div v-else>Image Preview</div>

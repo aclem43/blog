@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getImage, insertImage } from './database/db'
+import { getImage, getImages, insertImage } from './database/db'
 import multer from 'multer'
 import path from 'path'
 const upload = multer({ dest: 'uploads/' })
@@ -21,7 +21,12 @@ router.get('/image/:id', async (req, res) => {
 
 router.post('/image', upload.single('file'), (req, res) => {
   insertImage(req.file.path, req.file.mimetype)
-  res.status(200)
+  res.status(200).send('Image uploaded')
+})
+
+router.get('/images', async (req, res) => {
+  const images = await getImages()
+  res.send(images)
 })
 
 export default router

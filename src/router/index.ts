@@ -3,8 +3,9 @@ import HomeView from '../views/HomeView.vue'
 import PostView from '../views/PostView.vue'
 import GalleryView from '../views/GalleryView.vue'
 import NewPostView from '../views/admin/NewPostView.vue'
-import AdminView from '@/views/admin/AdminView.vue'
-import AdminGalleryView from '@/views/admin/AdminGalleryView.vue'
+import AdminView from '../views/admin/AdminView.vue'
+import AdminGalleryView from '../views/admin/AdminGalleryView.vue'
+import SettingsView from '../views/SettingsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/gallery',
       name: 'gallery',
       component: GalleryView
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsView
     },
     {
       path: '/admin/',

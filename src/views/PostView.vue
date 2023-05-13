@@ -21,5 +21,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="pa-4" v-html="html"></div>
+  <v-card>
+    <v-img
+      v-if="post?.image"
+      class="align-end text-white"
+      :height="post.image?.height"
+      :src="post.image?.url"
+      :cover="post.image?.cover"
+    >
+      <v-card-title primary-title>{{ post.title }}</v-card-title>
+    </v-img>
+    <v-card-title v-else primary-title> {{ post != null ? post.title : '' }} </v-card-title>
+    <v-card-text> <div v-html="html"></div> </v-card-text>
+  </v-card>
 </template>
