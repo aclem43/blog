@@ -2,14 +2,33 @@
 import { ref } from 'vue'
 
 const dialog = ref(false)
-const file = ref(null)
+const file = ref()
 const image = ref('')
 
-const onFileChange = (e: unknown) => {
-  //   if (!e.target) return
-  //   const file = e.target.files[0]
-  //   image.value = URL.createObjectURL(file)
+const onFileChange = (e: Event) => {
+  if (!e.target) return
+  const target = e.target as HTMLInputElement
+  if (!target.files) return
+  if (!target.files[0]) return
+  image.value = URL.createObjectURL(target.files[0])
+  file.value = target.files[0]
 }
+
+const upload = () => {
+  if (file.value === undefined) return
+  const data = new FormData()
+  data.append('file', file.value)
+  fetch('/api/image', {
+    method: 'POST',
+    body: data
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((err) => console.log(err))
+}
+
 const openOverlay = () => {
   dialog.value = true
 }
@@ -28,12 +47,11 @@ defineExpose({ openDialog: openOverlay })
               accept="image/*"
               label="Select a picture"
               prepend-icon="mdi-camera"
-              v-model="file"
               show-size
               variant="solo"
               @change="onFileChange"
             ></v-file-input>
-            <v-btn color="primary" max-width="300" block>Upload</v-btn>
+            <v-btn color="primary" max-width="300" @click="upload()" block>Upload</v-btn>
           </div>
           <div class="d-flex flex-grow-1" style="height: 300px">
             <v-img v-if="image" :src="image"></v-img>
