@@ -2,17 +2,16 @@ import mssql from 'mssql'
 import { logger } from '../logger'
 import fs from 'fs'
 import { FileMimeType } from '../mimetypes'
+import { getConfig } from '../config'
 
 const sql = mssql
 
 const connect = async () => {
   try {
-    await sql.connect(
-      'Server=localhost,1433;Database=blog;User Id=sa;Password=AO7gupRfmN;Encrypt=false'
-    )
+    await sql.connect(getConfig().database.connectionString)
     logger.log('Connected to database')
   } catch (err) {
-    logger.log('Failed to connect to database')
+    logger.error('Failed to connect to database')
     logger.error(err)
   }
 }

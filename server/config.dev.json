@@ -1,0 +1,10 @@
+{
+  "dev": "true",
+  "database": {
+    "connectionString": "Server=localhost,1433;Database=blog;User Id=sa;Password=AO7gupRfmN;Encrypt=false"
+  },
+  "user": {
+    "username": "admin",
+    "password": "admin"
+  }
+}
