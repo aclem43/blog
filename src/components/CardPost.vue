@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { BasePost } from '../scripts/post'
-const props = defineProps<{ post: BasePost }>()
+import { convertToDate } from '@/scripts/utils'
+import type { Post } from '../scripts/post'
+const props = defineProps<{ post: Post }>()
 
 const image: boolean = props.post.image != undefined
 console.log(props)
@@ -10,13 +11,14 @@ console.log(props)
     <v-img
       v-if="image"
       class="align-end text-white"
-      :height="post.image?.height"
-      :src="post.image?.url"
-      :cover="post.image?.cover"
+      :height="300"
+      :src="`/api/image/${post.image}`"
+      :cover="true"
     >
       <v-card-title primary-title>{{ post.title }}</v-card-title>
     </v-img>
     <v-card-title v-else primary-title> {{ post.title }} </v-card-title>
-    <v-card-text> {{ post.descriptionBody }} </v-card-text>
+    <v-card-subtitle>{{ convertToDate(post.date).toLocaleString() }}</v-card-subtitle>
+    <v-card-text> {{ post.description }} </v-card-text>
   </v-card>
 </template>

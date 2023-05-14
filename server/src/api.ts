@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { getImage, getImages, insertImage } from './database/db'
+import { getImage, getImages, getPost, getPosts, insertImage, insertPost } from './database/db'
 import multer from 'multer'
 import path from 'path'
 const upload = multer({ dest: 'uploads/' })
@@ -27,6 +27,32 @@ router.post('/image', upload.single('file'), (req, res) => {
 router.get('/images', async (req, res) => {
   const images = await getImages()
   res.send(images)
+})
+
+router.post('/post', (req, res) => {
+  console.log(req.body)
+  if (!req.body.title || !req.body.description || !req.body.content) {
+    res.status(400).send('Missing required fields')
+  }
+  insertPost(req.body.title, req.body.description, req.body.content, req.body.image)
+
+  res.status(200).send('Post created')
+})
+
+router.get('/posts', (req, res) => {
+  getPosts().then((posts) => {
+    res.send(posts)
+  })
+})
+
+router.get('/post/:id', (req, res) => {
+  getPost(parseInt(req.params.id, 10)).then((post) => {
+    if (!post) {
+      res.status(404).send('Post not found')
+    } else {
+      res.status(200).send(post)
+    }
+  })
 })
 
 export default router

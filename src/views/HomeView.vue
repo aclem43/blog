@@ -1,14 +1,22 @@
 <script setup lang="ts">
 import CardPost from '@/components/CardPost.vue'
-import { mockPostRequest, type BasePost } from '@/scripts/post'
+import type { Post } from '@/scripts/post'
 import { sidebar } from '@/scripts/sidebar'
 import { onMounted, ref, type Ref } from 'vue'
+import { convertToDate } from '@/scripts/utils'
 
-const posts: Ref<BasePost[]> = ref([])
+const posts: Ref<Post[]> = ref([])
 
 onMounted(async () => {
-  const fetchedPosts = mockPostRequest()
-  posts.value.push(...fetchedPosts)
+  fetch('/api/posts')
+    .then((res) => res.json())
+    .then((data) => {
+      posts.value.push(...(data as Post[]))
+      posts.value.sort((a: Post, b: Post) => {
+        return convertToDate(b.date).getTime() - convertToDate(a.date).getTime()
+      })
+    })
+
   sidebar.value = true
 })
 </script>

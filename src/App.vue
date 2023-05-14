@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import AppBar from './components/AppBar.vue'
 import { onMounted } from 'vue'
-import { initTheme, themeRef } from './scripts/theme'
+import { initTheme } from './scripts/theme'
+import { snackBar, text, timeout } from './scripts/snackbar'
+
 import SideBar from './components/SideBar.vue'
 
 onMounted(() => {
@@ -26,5 +28,9 @@ onMounted(() => {
         </v-row>
       </v-container>
     </v-main>
+    <v-snackbar v-model="snackBar" :timeout="timeout">
+      {{ text }}
+      <v-btn flat color="primary" @click="snackBar = false">Close</v-btn>
+    </v-snackbar>
   </v-app>
 </template>

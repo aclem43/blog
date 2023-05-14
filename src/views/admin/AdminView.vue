@@ -1,7 +1,22 @@
 <script setup lang="ts">
-import { mockPostRequest } from '@/scripts/post'
+import type { Post } from '@/scripts/post'
+import { convertToDate } from '@/scripts/utils'
+import type { Ref } from 'vue'
+import { ref } from 'vue'
+import { onMounted } from 'vue'
 
-const posts = mockPostRequest()
+const posts: Ref<Post[]> = ref([])
+
+onMounted(() => {
+  fetch('/api/posts')
+    .then((res) => res.json())
+    .then((data) => {
+      posts.value.push(...(data as Post[]))
+      posts.value.sort((a: Post, b: Post) => {
+        return convertToDate(b.date).getTime() - convertToDate(a.date).getTime()
+      })
+    })
+})
 </script>
 
 <template>
@@ -15,7 +30,7 @@ const posts = mockPostRequest()
       <v-list-item
         v-for="post in posts"
         :title="post.title"
-        :subtitle="post.descriptionBody"
+        :subtitle="post.description"
         :key="post.id"
         link
         :href="`#${post.id}`"

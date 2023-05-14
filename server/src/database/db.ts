@@ -29,7 +29,8 @@ const initilizeBlogPostTable = async () => {
         CREATE TABLE blog_posts (
         id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
-        descriptionBody VARCHAR(255) NOT NULL,
+        description VARCHAR(MAX) NOT NULL,
+        content VARCHAR(MAX) NOT NULL,
         imageId INT,
         date DATETIME NOT NULL DEFAULT GETDATE(),
         )
@@ -62,6 +63,15 @@ export const getPosts = async () => {
 export const getPost = async (id: number) => {
   const result = await sql.query`select * from blog_posts where id = ${id}`
   return result.recordset[0]
+}
+
+export const insertPost = async (
+  title: string,
+  description: string,
+  content: string,
+  imageId: number
+) => {
+  await sql.query`insert into blog_posts (title, description, content, imageId) values (${title}, ${description}, ${content}, ${imageId})`
 }
 
 export const getImages = async () => {
