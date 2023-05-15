@@ -14,16 +14,14 @@ onMounted(() => {
 <template>
   <v-app theme="themeDark">
     <AppBar />
-    <v-main class="bg-secondary">
+    <v-main>
       <v-container>
         <v-row>
           <v-col cols="2">
             <SideBar />
           </v-col>
           <v-col>
-            <v-sheet min-height="70vh" rounded="lg">
-              <RouterView />
-            </v-sheet>
+            <RouterView />
           </v-col>
         </v-row>
       </v-container>

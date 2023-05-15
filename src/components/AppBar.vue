@@ -10,7 +10,7 @@ import { mdiMenu, mdiCog } from '@mdi/js'
 
       <v-spacer></v-spacer>
 
-      <v-btn variant="text">
+      <v-btn color="primary" variant="tonal">
         <v-icon :icon="mdiMenu"></v-icon>
         <v-menu activator="parent" open-on-hover>
           <v-list>

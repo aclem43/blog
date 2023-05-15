@@ -7,7 +7,7 @@ const image: boolean = props.post.image != undefined
 console.log(props)
 </script>
 <template>
-  <v-card :href="`/post/${post.id}`" hover elevation="10" class="bg-secondary">
+  <v-card :href="`/post/${post.id}`" hover elevation="10">
     <v-img
       v-if="image"
       class="align-end text-white"
